@@ -1,0 +1,11 @@
+﻿namespace KutuphaneTakip.Models
+{
+    public class Yazar
+    {
+        public int Id { get; set; }
+        public string YazarAdi { get; set; }
+
+
+
+    }
+}
