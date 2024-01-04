@@ -1,13 +1,14 @@
 ﻿namespace KutuphaneTakip.Models
 {
-    public class Erisebilirlik
+    public class KullaniciTipi
     {
         public int Id { get; set; }
-        public int Yetki { get; set; }
+        public string Tip { get; set; }
+        
         public virtual List<Kullanici> Kullanicis { get; set; }
 
 
-        public virtual List<Kitaplar> Kitaplars { get; set; }
+
 
 
     }

@@ -1,6 +1,8 @@
 ﻿using KutuphaneTakip.Models;
+using KutuphaneTakip.Repositories;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
+using Microsoft.Data;
 
 namespace KutuphaneTakip.Controllers
 {
@@ -8,23 +10,27 @@ namespace KutuphaneTakip.Controllers
     [ApiController]
     public class KullaniciController : ControllerBase
     {
-        private readonly ILogger<KullaniciController> _logger;
-        public KullaniciController(ILogger<KullaniciController> logger) {
-            _logger = logger;
+        private readonly RepositoryContext _context;
+        public KullaniciController(RepositoryContext context)
+        {
+            _context = context;
         }
         [HttpGet]
-        public IActionResult GettAllKullanicis()
+        public IActionResult GetAllKullanicis()
         {
-            var kullanici = new List<Kullanici>()
+            try
             {
-                new Kullanici() {Id=1,AdresId=1,Gmail="master@gmail.com",Telefon=053503744,Erisebilirlik=1},
-                new Kullanici() {Id=2,AdresId=2,Gmail="asmon@gmail.com",Telefon=2342432,Erisebilirlik=2},
-                
-            };
-           
-            return Ok(kullanici);
+                var kullanicis = _context.Kullanicis.ToList();
+                return Ok(kullanicis);
+            }
+            catch (Exception ex)
+            {
+
+                throw new Exception(ex.Message);
+            }
 
         }
+
 
     }
 }

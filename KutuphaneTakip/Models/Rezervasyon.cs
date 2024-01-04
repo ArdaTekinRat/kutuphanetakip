@@ -4,8 +4,12 @@
     {
         public int Id { get; set; }
         public int KutuphaneId { get; set; }
+        public virtual Kutuphane? Kutuphane { get; set; }
+
         public int KullaniciId { get; set; }
-        public string Kullanici { get; set; }
+        public virtual Kullanici? Kullanici { get; set; }
+
+        public string KullaniciAdi { get; set; }
         public string Gmail { get; set; }
         public int Telefon { get; set; }
         public int Gun { get; set; }

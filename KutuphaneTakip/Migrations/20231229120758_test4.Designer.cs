@@ -4,6 +4,7 @@ using KutuphaneTakip.Repositories;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 
 #nullable disable
@@ -11,9 +12,11 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace KutuphaneTakip.Migrations
 {
     [DbContext(typeof(RepositoryContext))]
-    partial class RepositoryContextModelSnapshot : ModelSnapshot
+    [Migration("20231229120758_test4")]
+    partial class test4
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        /// <inheritdoc />
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -76,7 +79,7 @@ namespace KutuphaneTakip.Migrations
 
                     b.HasIndex("KutuphaneId");
 
-                    b.ToTable("Departmanlars");
+                    b.ToTable("Departmanlar");
                 });
 
             modelBuilder.Entity("KutuphaneTakip.Models.DilTurleri", b =>
@@ -295,10 +298,10 @@ namespace KutuphaneTakip.Migrations
 
                     b.HasKey("Id");
 
-                    b.ToTable("KullaniciTipis");
+                    b.ToTable("KullaniciTipi");
                 });
 
-            modelBuilder.Entity("KutuphaneTakip.Models.Kutuphaneler", b =>
+            modelBuilder.Entity("KutuphaneTakip.Models.Kutuphane", b =>
                 {
                     b.Property<int>("Id")
                         .ValueGeneratedOnAdd()
@@ -312,7 +315,7 @@ namespace KutuphaneTakip.Migrations
 
                     b.HasKey("Id");
 
-                    b.ToTable("Kutuphanes");
+                    b.ToTable("Kutuphane");
                 });
 
             modelBuilder.Entity("KutuphaneTakip.Models.OdaTipi", b =>
@@ -329,7 +332,7 @@ namespace KutuphaneTakip.Migrations
 
                     b.HasKey("Id");
 
-                    b.ToTable("OdaTipis");
+                    b.ToTable("OdaTipi");
                 });
 
             modelBuilder.Entity("KutuphaneTakip.Models.Odalar", b =>
@@ -543,7 +546,7 @@ namespace KutuphaneTakip.Migrations
 
             modelBuilder.Entity("KutuphaneTakip.Models.Departmanlar", b =>
                 {
-                    b.HasOne("KutuphaneTakip.Models.Kutuphaneler", "Kutuphane")
+                    b.HasOne("KutuphaneTakip.Models.Kutuphane", "Kutuphane")
                         .WithMany("Departmanlars")
                         .HasForeignKey("KutuphaneId")
                         .OnDelete(DeleteBehavior.Cascade)
@@ -579,7 +582,7 @@ namespace KutuphaneTakip.Migrations
                         .WithMany("Kitaplars")
                         .HasForeignKey("KitapTurleriId");
 
-                    b.HasOne("KutuphaneTakip.Models.Kutuphaneler", "Kutuphane")
+                    b.HasOne("KutuphaneTakip.Models.Kutuphane", "Kutuphane")
                         .WithMany("Kitaplars")
                         .HasForeignKey("KutuphaneId")
                         .OnDelete(DeleteBehavior.Cascade)
@@ -645,7 +648,7 @@ namespace KutuphaneTakip.Migrations
 
             modelBuilder.Entity("KutuphaneTakip.Models.Odalar", b =>
                 {
-                    b.HasOne("KutuphaneTakip.Models.Kutuphaneler", "Kutuphane")
+                    b.HasOne("KutuphaneTakip.Models.Kutuphane", "Kutuphane")
                         .WithMany("Odalars")
                         .HasForeignKey("KutuphaneId")
                         .OnDelete(DeleteBehavior.Cascade)
@@ -662,7 +665,7 @@ namespace KutuphaneTakip.Migrations
 
             modelBuilder.Entity("KutuphaneTakip.Models.OduncVerilenAyar", b =>
                 {
-                    b.HasOne("KutuphaneTakip.Models.Kutuphaneler", "Kutuphane")
+                    b.HasOne("KutuphaneTakip.Models.Kutuphane", "Kutuphane")
                         .WithMany("OduncVerilenAyars")
                         .HasForeignKey("KutuphaneId")
                         .OnDelete(DeleteBehavior.Cascade)
@@ -702,7 +705,7 @@ namespace KutuphaneTakip.Migrations
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
 
-                    b.HasOne("KutuphaneTakip.Models.Kutuphaneler", "Kutuphane")
+                    b.HasOne("KutuphaneTakip.Models.Kutuphane", "Kutuphane")
                         .WithMany("Rezervasyons")
                         .HasForeignKey("KutuphaneId")
                         .OnDelete(DeleteBehavior.Cascade)
@@ -759,7 +762,7 @@ namespace KutuphaneTakip.Migrations
                     b.Navigation("Kullanicis");
                 });
 
-            modelBuilder.Entity("KutuphaneTakip.Models.Kutuphaneler", b =>
+            modelBuilder.Entity("KutuphaneTakip.Models.Kutuphane", b =>
                 {
                     b.Navigation("Departmanlars");
 

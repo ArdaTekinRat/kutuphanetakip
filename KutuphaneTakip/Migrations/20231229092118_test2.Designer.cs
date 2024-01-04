@@ -4,6 +4,7 @@ using KutuphaneTakip.Repositories;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 
 #nullable disable
@@ -11,9 +12,11 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace KutuphaneTakip.Migrations
 {
     [DbContext(typeof(RepositoryContext))]
-    partial class RepositoryContextModelSnapshot : ModelSnapshot
+    [Migration("20231229092118_test2")]
+    partial class test2
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        /// <inheritdoc />
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -55,28 +58,6 @@ namespace KutuphaneTakip.Migrations
                     b.HasKey("Id");
 
                     b.ToTable("Adress");
-                });
-
-            modelBuilder.Entity("KutuphaneTakip.Models.Departmanlar", b =>
-                {
-                    b.Property<int>("Id")
-                        .ValueGeneratedOnAdd()
-                        .HasColumnType("int");
-
-                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"));
-
-                    b.Property<string>("Departman")
-                        .IsRequired()
-                        .HasColumnType("nvarchar(max)");
-
-                    b.Property<int>("KutuphaneId")
-                        .HasColumnType("int");
-
-                    b.HasKey("Id");
-
-                    b.HasIndex("KutuphaneId");
-
-                    b.ToTable("Departmanlars");
                 });
 
             modelBuilder.Entity("KutuphaneTakip.Models.DilTurleri", b =>
@@ -229,8 +210,6 @@ namespace KutuphaneTakip.Migrations
 
                     b.HasIndex("KitapTurleriId");
 
-                    b.HasIndex("KutuphaneId");
-
                     b.HasIndex("YayinEviId");
 
                     b.HasIndex("YazarId");
@@ -249,21 +228,12 @@ namespace KutuphaneTakip.Migrations
                     b.Property<int>("AdresId")
                         .HasColumnType("int");
 
-                    b.Property<int>("DepartmanId")
-                        .HasColumnType("int");
-
-                    b.Property<int?>("DepartmanlarId")
-                        .HasColumnType("int");
-
                     b.Property<int>("ErisebilirlikId")
                         .HasColumnType("int");
 
                     b.Property<string>("Gmail")
                         .IsRequired()
                         .HasColumnType("nvarchar(max)");
-
-                    b.Property<int>("KullaniciTipiId")
-                        .HasColumnType("int");
 
                     b.Property<int>("Telefon")
                         .HasColumnType("int");
@@ -272,64 +242,9 @@ namespace KutuphaneTakip.Migrations
 
                     b.HasIndex("AdresId");
 
-                    b.HasIndex("DepartmanlarId");
-
                     b.HasIndex("ErisebilirlikId");
 
-                    b.HasIndex("KullaniciTipiId");
-
                     b.ToTable("Kullanicis");
-                });
-
-            modelBuilder.Entity("KutuphaneTakip.Models.KullaniciTipi", b =>
-                {
-                    b.Property<int>("Id")
-                        .ValueGeneratedOnAdd()
-                        .HasColumnType("int");
-
-                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"));
-
-                    b.Property<string>("Tip")
-                        .IsRequired()
-                        .HasColumnType("nvarchar(max)");
-
-                    b.HasKey("Id");
-
-                    b.ToTable("KullaniciTipis");
-                });
-
-            modelBuilder.Entity("KutuphaneTakip.Models.Kutuphaneler", b =>
-                {
-                    b.Property<int>("Id")
-                        .ValueGeneratedOnAdd()
-                        .HasColumnType("int");
-
-                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"));
-
-                    b.Property<string>("KutuphaneAdi")
-                        .IsRequired()
-                        .HasColumnType("nvarchar(max)");
-
-                    b.HasKey("Id");
-
-                    b.ToTable("Kutuphanes");
-                });
-
-            modelBuilder.Entity("KutuphaneTakip.Models.OdaTipi", b =>
-                {
-                    b.Property<int>("Id")
-                        .ValueGeneratedOnAdd()
-                        .HasColumnType("int");
-
-                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"));
-
-                    b.Property<string>("Tip")
-                        .IsRequired()
-                        .HasColumnType("nvarchar(max)");
-
-                    b.HasKey("Id");
-
-                    b.ToTable("OdaTipis");
                 });
 
             modelBuilder.Entity("KutuphaneTakip.Models.Odalar", b =>
@@ -347,17 +262,10 @@ namespace KutuphaneTakip.Migrations
                         .IsRequired()
                         .HasColumnType("nvarchar(max)");
 
-                    b.Property<int?>("OdaTipiId")
-                        .HasColumnType("int");
-
                     b.Property<int>("OdatipId")
                         .HasColumnType("int");
 
                     b.HasKey("Id");
-
-                    b.HasIndex("KutuphaneId");
-
-                    b.HasIndex("OdaTipiId");
 
                     b.ToTable("Odalars");
                 });
@@ -397,8 +305,6 @@ namespace KutuphaneTakip.Migrations
                         .HasColumnType("int");
 
                     b.HasKey("Id");
-
-                    b.HasIndex("KutuphaneId");
 
                     b.ToTable("OduncVerilenAyars");
                 });
@@ -502,8 +408,6 @@ namespace KutuphaneTakip.Migrations
 
                     b.HasIndex("KullaniciId");
 
-                    b.HasIndex("KutuphaneId");
-
                     b.ToTable("Rezervasyons");
                 });
 
@@ -541,17 +445,6 @@ namespace KutuphaneTakip.Migrations
                     b.ToTable("Yazars");
                 });
 
-            modelBuilder.Entity("KutuphaneTakip.Models.Departmanlar", b =>
-                {
-                    b.HasOne("KutuphaneTakip.Models.Kutuphaneler", "Kutuphane")
-                        .WithMany("Departmanlars")
-                        .HasForeignKey("KutuphaneId")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
-
-                    b.Navigation("Kutuphane");
-                });
-
             modelBuilder.Entity("KutuphaneTakip.Models.GeriBildirim", b =>
                 {
                     b.HasOne("KutuphaneTakip.Models.Kullanici", "Kullanici")
@@ -579,12 +472,6 @@ namespace KutuphaneTakip.Migrations
                         .WithMany("Kitaplars")
                         .HasForeignKey("KitapTurleriId");
 
-                    b.HasOne("KutuphaneTakip.Models.Kutuphaneler", "Kutuphane")
-                        .WithMany("Kitaplars")
-                        .HasForeignKey("KutuphaneId")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
-
                     b.HasOne("KutuphaneTakip.Models.Yayinevi", "Yayinevi")
                         .WithMany("Kitaplars")
                         .HasForeignKey("YayinEviId")
@@ -603,8 +490,6 @@ namespace KutuphaneTakip.Migrations
 
                     b.Navigation("KitapTurleri");
 
-                    b.Navigation("Kutuphane");
-
                     b.Navigation("Yayinevi");
 
                     b.Navigation("Yazar");
@@ -618,57 +503,15 @@ namespace KutuphaneTakip.Migrations
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
 
-                    b.HasOne("KutuphaneTakip.Models.Departmanlar", "Departmanlar")
-                        .WithMany("Kullanicis")
-                        .HasForeignKey("DepartmanlarId");
-
                     b.HasOne("KutuphaneTakip.Models.Erisebilirlik", "Erisebilirlik")
                         .WithMany("Kullanicis")
                         .HasForeignKey("ErisebilirlikId")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
 
-                    b.HasOne("KutuphaneTakip.Models.KullaniciTipi", "KullaniciTipi")
-                        .WithMany("Kullanicis")
-                        .HasForeignKey("KullaniciTipiId")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
-
                     b.Navigation("Adres");
 
-                    b.Navigation("Departmanlar");
-
                     b.Navigation("Erisebilirlik");
-
-                    b.Navigation("KullaniciTipi");
-                });
-
-            modelBuilder.Entity("KutuphaneTakip.Models.Odalar", b =>
-                {
-                    b.HasOne("KutuphaneTakip.Models.Kutuphaneler", "Kutuphane")
-                        .WithMany("Odalars")
-                        .HasForeignKey("KutuphaneId")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
-
-                    b.HasOne("KutuphaneTakip.Models.OdaTipi", "OdaTipi")
-                        .WithMany("Odalars")
-                        .HasForeignKey("OdaTipiId");
-
-                    b.Navigation("Kutuphane");
-
-                    b.Navigation("OdaTipi");
-                });
-
-            modelBuilder.Entity("KutuphaneTakip.Models.OduncVerilenAyar", b =>
-                {
-                    b.HasOne("KutuphaneTakip.Models.Kutuphaneler", "Kutuphane")
-                        .WithMany("OduncVerilenAyars")
-                        .HasForeignKey("KutuphaneId")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
-
-                    b.Navigation("Kutuphane");
                 });
 
             modelBuilder.Entity("KutuphaneTakip.Models.OduncVerilenKitaplar", b =>
@@ -702,23 +545,10 @@ namespace KutuphaneTakip.Migrations
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
 
-                    b.HasOne("KutuphaneTakip.Models.Kutuphaneler", "Kutuphane")
-                        .WithMany("Rezervasyons")
-                        .HasForeignKey("KutuphaneId")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
-
                     b.Navigation("Kullanici");
-
-                    b.Navigation("Kutuphane");
                 });
 
             modelBuilder.Entity("KutuphaneTakip.Models.Adres", b =>
-                {
-                    b.Navigation("Kullanicis");
-                });
-
-            modelBuilder.Entity("KutuphaneTakip.Models.Departmanlar", b =>
                 {
                     b.Navigation("Kullanicis");
                 });
@@ -752,29 +582,6 @@ namespace KutuphaneTakip.Migrations
                     b.Navigation("OduncVerilenKitaplars");
 
                     b.Navigation("Rezervasyons");
-                });
-
-            modelBuilder.Entity("KutuphaneTakip.Models.KullaniciTipi", b =>
-                {
-                    b.Navigation("Kullanicis");
-                });
-
-            modelBuilder.Entity("KutuphaneTakip.Models.Kutuphaneler", b =>
-                {
-                    b.Navigation("Departmanlars");
-
-                    b.Navigation("Kitaplars");
-
-                    b.Navigation("Odalars");
-
-                    b.Navigation("OduncVerilenAyars");
-
-                    b.Navigation("Rezervasyons");
-                });
-
-            modelBuilder.Entity("KutuphaneTakip.Models.OdaTipi", b =>
-                {
-                    b.Navigation("Odalars");
                 });
 
             modelBuilder.Entity("KutuphaneTakip.Models.OduncDurumlari", b =>

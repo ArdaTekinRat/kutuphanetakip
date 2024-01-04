@@ -4,6 +4,7 @@ using KutuphaneTakip.Repositories;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 
 #nullable disable
@@ -11,9 +12,11 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace KutuphaneTakip.Migrations
 {
     [DbContext(typeof(RepositoryContext))]
-    partial class RepositoryContextModelSnapshot : ModelSnapshot
+    [Migration("20231229115150_test3")]
+    partial class test3
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        /// <inheritdoc />
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -74,9 +77,7 @@ namespace KutuphaneTakip.Migrations
 
                     b.HasKey("Id");
 
-                    b.HasIndex("KutuphaneId");
-
-                    b.ToTable("Departmanlars");
+                    b.ToTable("Departmanlar");
                 });
 
             modelBuilder.Entity("KutuphaneTakip.Models.DilTurleri", b =>
@@ -229,8 +230,6 @@ namespace KutuphaneTakip.Migrations
 
                     b.HasIndex("KitapTurleriId");
 
-                    b.HasIndex("KutuphaneId");
-
                     b.HasIndex("YayinEviId");
 
                     b.HasIndex("YazarId");
@@ -295,24 +294,7 @@ namespace KutuphaneTakip.Migrations
 
                     b.HasKey("Id");
 
-                    b.ToTable("KullaniciTipis");
-                });
-
-            modelBuilder.Entity("KutuphaneTakip.Models.Kutuphaneler", b =>
-                {
-                    b.Property<int>("Id")
-                        .ValueGeneratedOnAdd()
-                        .HasColumnType("int");
-
-                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"));
-
-                    b.Property<string>("KutuphaneAdi")
-                        .IsRequired()
-                        .HasColumnType("nvarchar(max)");
-
-                    b.HasKey("Id");
-
-                    b.ToTable("Kutuphanes");
+                    b.ToTable("KullaniciTipi");
                 });
 
             modelBuilder.Entity("KutuphaneTakip.Models.OdaTipi", b =>
@@ -329,7 +311,7 @@ namespace KutuphaneTakip.Migrations
 
                     b.HasKey("Id");
 
-                    b.ToTable("OdaTipis");
+                    b.ToTable("OdaTipi");
                 });
 
             modelBuilder.Entity("KutuphaneTakip.Models.Odalar", b =>
@@ -354,8 +336,6 @@ namespace KutuphaneTakip.Migrations
                         .HasColumnType("int");
 
                     b.HasKey("Id");
-
-                    b.HasIndex("KutuphaneId");
 
                     b.HasIndex("OdaTipiId");
 
@@ -397,8 +377,6 @@ namespace KutuphaneTakip.Migrations
                         .HasColumnType("int");
 
                     b.HasKey("Id");
-
-                    b.HasIndex("KutuphaneId");
 
                     b.ToTable("OduncVerilenAyars");
                 });
@@ -502,8 +480,6 @@ namespace KutuphaneTakip.Migrations
 
                     b.HasIndex("KullaniciId");
 
-                    b.HasIndex("KutuphaneId");
-
                     b.ToTable("Rezervasyons");
                 });
 
@@ -541,17 +517,6 @@ namespace KutuphaneTakip.Migrations
                     b.ToTable("Yazars");
                 });
 
-            modelBuilder.Entity("KutuphaneTakip.Models.Departmanlar", b =>
-                {
-                    b.HasOne("KutuphaneTakip.Models.Kutuphaneler", "Kutuphane")
-                        .WithMany("Departmanlars")
-                        .HasForeignKey("KutuphaneId")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
-
-                    b.Navigation("Kutuphane");
-                });
-
             modelBuilder.Entity("KutuphaneTakip.Models.GeriBildirim", b =>
                 {
                     b.HasOne("KutuphaneTakip.Models.Kullanici", "Kullanici")
@@ -579,12 +544,6 @@ namespace KutuphaneTakip.Migrations
                         .WithMany("Kitaplars")
                         .HasForeignKey("KitapTurleriId");
 
-                    b.HasOne("KutuphaneTakip.Models.Kutuphaneler", "Kutuphane")
-                        .WithMany("Kitaplars")
-                        .HasForeignKey("KutuphaneId")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
-
                     b.HasOne("KutuphaneTakip.Models.Yayinevi", "Yayinevi")
                         .WithMany("Kitaplars")
                         .HasForeignKey("YayinEviId")
@@ -602,8 +561,6 @@ namespace KutuphaneTakip.Migrations
                     b.Navigation("Erisebilirlik");
 
                     b.Navigation("KitapTurleri");
-
-                    b.Navigation("Kutuphane");
 
                     b.Navigation("Yayinevi");
 
@@ -645,30 +602,11 @@ namespace KutuphaneTakip.Migrations
 
             modelBuilder.Entity("KutuphaneTakip.Models.Odalar", b =>
                 {
-                    b.HasOne("KutuphaneTakip.Models.Kutuphaneler", "Kutuphane")
-                        .WithMany("Odalars")
-                        .HasForeignKey("KutuphaneId")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
-
                     b.HasOne("KutuphaneTakip.Models.OdaTipi", "OdaTipi")
                         .WithMany("Odalars")
                         .HasForeignKey("OdaTipiId");
 
-                    b.Navigation("Kutuphane");
-
                     b.Navigation("OdaTipi");
-                });
-
-            modelBuilder.Entity("KutuphaneTakip.Models.OduncVerilenAyar", b =>
-                {
-                    b.HasOne("KutuphaneTakip.Models.Kutuphaneler", "Kutuphane")
-                        .WithMany("OduncVerilenAyars")
-                        .HasForeignKey("KutuphaneId")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
-
-                    b.Navigation("Kutuphane");
                 });
 
             modelBuilder.Entity("KutuphaneTakip.Models.OduncVerilenKitaplar", b =>
@@ -702,15 +640,7 @@ namespace KutuphaneTakip.Migrations
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
 
-                    b.HasOne("KutuphaneTakip.Models.Kutuphaneler", "Kutuphane")
-                        .WithMany("Rezervasyons")
-                        .HasForeignKey("KutuphaneId")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
-
                     b.Navigation("Kullanici");
-
-                    b.Navigation("Kutuphane");
                 });
 
             modelBuilder.Entity("KutuphaneTakip.Models.Adres", b =>
@@ -757,19 +687,6 @@ namespace KutuphaneTakip.Migrations
             modelBuilder.Entity("KutuphaneTakip.Models.KullaniciTipi", b =>
                 {
                     b.Navigation("Kullanicis");
-                });
-
-            modelBuilder.Entity("KutuphaneTakip.Models.Kutuphaneler", b =>
-                {
-                    b.Navigation("Departmanlars");
-
-                    b.Navigation("Kitaplars");
-
-                    b.Navigation("Odalars");
-
-                    b.Navigation("OduncVerilenAyars");
-
-                    b.Navigation("Rezervasyons");
                 });
 
             modelBuilder.Entity("KutuphaneTakip.Models.OdaTipi", b =>
